@@ -14,4 +14,7 @@ public class MostWicketsCSV {
 
     @CsvBindByName(column = "5w",required = true)
     public int fiveWickets;
+
+    @CsvBindByName(column = "SR",required = true)
+    public double strikeRate;
 }
