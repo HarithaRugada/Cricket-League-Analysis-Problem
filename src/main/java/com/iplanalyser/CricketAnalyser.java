@@ -17,9 +17,13 @@ public class CricketAnalyser {
     public CricketAnalyser() {
         this.IPLCSVList = new ArrayList<>();
         this.sortedMap = new HashMap<>();
+        Comparator<MostRunsCSV> avgStrike = Comparator.comparing(res -> res.battingAverage);
+        this.sortedMap.put(SortedField.AVGSTRIKE, avgStrike.thenComparing(res -> res.strikeRate));
         this.sortedMap.put(SortedField.AVERAGE,Comparator.comparing(IplFields -> IplFields.battingAverage));
         this.sortedMap.put(SortedField.STRIKERATE,Comparator.comparing(IplFields -> IplFields.strikeRate));
-        this.sortedMap.put(SortedField.MAXIMUM_HIT, Comparator.comparing(IplFields -> IplFields.fours + IplFields.sixes));
+        this.sortedMap.put(SortedField.BESTSTRIKE, new BatsmanComparator().thenComparing(res -> res.strikeRate));
+        Comparator<MostRunsCSV> maxRuns = Comparator.comparing(res -> res.runs);
+        this.sortedMap.put(SortedField.MAXRUNS, maxRuns.thenComparing(res -> res.battingAverage));
     }
 
     public int getCricketDataFile(String csvFilePath) {
@@ -46,7 +50,6 @@ public class CricketAnalyser {
         if(IPLCSVList == null || IPLCSVList.size() == 0){
             throw new CricketAnalyserException("No Data",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
         }
-        Comparator<MostRunsCSV> IplComparator = Comparator.comparing(IPL -> IPL.battingAverage);
         this.sort(IPLCSVList,this.sortedMap.get(sortedField));
         Collections.reverse(IPLCSVList);
         String sortedStateCensus=new Gson().toJson(IPLCSVList);
