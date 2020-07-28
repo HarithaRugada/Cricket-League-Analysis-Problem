@@ -24,4 +24,14 @@ public class CricketAnalyserTest {
         MostRunsCSV[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunsCSV[].class);
         Assert.assertEquals(333.33,mostRunCsv[0].strikeRate,0.0 );
     }
+
+    @Test
+    public void givenIPLMostRunsCSVFile_ReturnsCricketer_WhoHitMaximum4sAnd6s_InIPL2019() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        cricketAnalyser.getCricketDataFile(IPL_2019_MOST_RUNS_FILE_PATH);
+        String sortedCricketData = cricketAnalyser.getSortedCricketData(SortedField.MAXIMUM_HIT);
+        MostRunsCSV[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunsCSV[].class);
+        Assert.assertEquals(31,mostRunCsv[0].fours);
+        Assert.assertEquals(52,mostRunCsv[0].sixes);
+    }
 }
