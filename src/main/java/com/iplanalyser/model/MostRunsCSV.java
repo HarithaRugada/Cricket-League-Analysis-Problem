@@ -1,4 +1,4 @@
-package com.iplanalyser;
+package com.iplanalyser.model;
 
 import com.opencsv.bean.CsvBindByName;
 

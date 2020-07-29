@@ -1,4 +1,4 @@
-package com.iplanalyser;
+package com.iplanalyser.model;
 
 import com.opencsv.bean.CsvBindByName;
 
@@ -17,4 +17,10 @@ public class MostWicketsCSV {
 
     @CsvBindByName(column = "SR",required = true)
     public double strikeRate;
+
+    @CsvBindByName(column = "Econ",required = true)
+    public double economy;
+
+    @CsvBindByName(column = "Wkts",required = true)
+    public int totalWickets;
 }
